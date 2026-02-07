@@ -1,5 +1,6 @@
 package dev.joaquincoronado.betterme.user.service;
 
+import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import dev.joaquincoronado.betterme.user.dao.IUserDao;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import lombok.RequiredArgsConstructor;

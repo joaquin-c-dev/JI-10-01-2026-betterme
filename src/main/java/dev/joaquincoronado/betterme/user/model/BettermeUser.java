@@ -1,5 +1,6 @@
 package dev.joaquincoronado.betterme.user.model;
 
+import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import lombok.*;
 
 import java.time.LocalDateTime;
