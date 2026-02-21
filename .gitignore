@@ -33,3 +33,4 @@ build/
 .vscode/
 
 **/secrets/*
+!src/main/resources/secrets/README.md
