@@ -6,9 +6,9 @@ import io.jsonwebtoken.Jwts;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -16,7 +16,8 @@ import java.util.Date;
 @Service
 public class JWTService {
 
-    private String JWT_SECRET_KEY = "your_secret_key_here";
+    @Value("${jwt.seed}")
+    private String JWT_SECRET_KEY;
 
     public String generateToken(BettermeUser user){
         Instant now = Instant.now();

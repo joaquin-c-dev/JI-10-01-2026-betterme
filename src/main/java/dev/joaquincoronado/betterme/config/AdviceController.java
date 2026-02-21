@@ -5,6 +5,7 @@ import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -31,6 +32,14 @@ public class AdviceController {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ProblemDetail> notFound(Exception e){
         HttpStatus status = HttpStatus.NOT_FOUND;
+        ProblemDetail response = ProblemDetail.forStatusAndDetail(status, e.getMessage());
+        e.printStackTrace();
+        return new ResponseEntity<>(response, status);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ProblemDetail> badCredentialsException(Exception e){
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
         ProblemDetail response = ProblemDetail.forStatusAndDetail(status, e.getMessage());
         e.printStackTrace();
         return new ResponseEntity<>(response, status);

@@ -4,6 +4,7 @@ import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import dev.joaquincoronado.betterme.user.dao.IUserDao;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class UserService {
 
     private final IUserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     public BettermeUser getByEmail(String email){
         return this.userDao.getByEmail(email);
@@ -20,6 +22,9 @@ public class UserService {
 
     public void create(BettermeUser user){
         user.setCreatedAt(LocalDateTime.now());
+        if(user.getPassword() != null){
+            user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        }
         this.userDao.create(user);
     }
 
