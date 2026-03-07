@@ -1,6 +1,7 @@
 package dev.joaquincoronado.betterme.config;
 
 import dev.joaquincoronado.betterme.shared.exception.BadRequestException;
+import dev.joaquincoronado.betterme.shared.exception.ForbiddenException;
 import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -40,6 +41,14 @@ public class AdviceController {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ProblemDetail> badCredentialsException(Exception e){
         HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ProblemDetail response = ProblemDetail.forStatusAndDetail(status, e.getMessage());
+        e.printStackTrace();
+        return new ResponseEntity<>(response, status);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ProblemDetail> forbiddenException(Exception e){
+        HttpStatus status = HttpStatus.FORBIDDEN;
         ProblemDetail response = ProblemDetail.forStatusAndDetail(status, e.getMessage());
         e.printStackTrace();
         return new ResponseEntity<>(response, status);

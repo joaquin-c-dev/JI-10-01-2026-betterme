@@ -4,6 +4,7 @@ import dev.joaquincoronado.betterme.user.dao.IUserDao;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class AuthUserDetailsService implements UserDetailsService {
 
+    @Qualifier("userSpringDataJpa")
     private final IUserDao userDao;
 
     @NonNull

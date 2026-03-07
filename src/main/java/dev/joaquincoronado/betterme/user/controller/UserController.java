@@ -1,9 +1,14 @@
 package dev.joaquincoronado.betterme.user.controller;
 
+import dev.joaquincoronado.betterme.auth.model.BettermeAuth;
+import dev.joaquincoronado.betterme.shared.model.RequesterInfo;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import dev.joaquincoronado.betterme.user.usecase.UserUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,8 +33,12 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public BettermeUser updateUser(@RequestBody BettermeUser user){
-        return this.userUseCase.updateUseCase(user);
+    public BettermeUser updateUser(
+        @AuthenticationPrincipal BettermeAuth bettermeAuth,
+        @RequestBody BettermeUser user
+    ){
+        //RequesterInfo requesterInfo = bettermeAuth.getRequesterInfo();
+        return this.userUseCase.updateUseCase(null, user);
     }
 
 }

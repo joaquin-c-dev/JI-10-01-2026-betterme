@@ -1,7 +1,9 @@
 package dev.joaquincoronado.betterme.user.usecase;
 
 import dev.joaquincoronado.betterme.shared.exception.BadRequestException;
+import dev.joaquincoronado.betterme.shared.exception.ForbiddenException;
 import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
+import dev.joaquincoronado.betterme.shared.model.RequesterInfo;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import dev.joaquincoronado.betterme.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +44,14 @@ public class UserUseCase {
         return user;
     }
 
-    public BettermeUser updateUseCase(BettermeUser user){
+    public BettermeUser updateUseCase(RequesterInfo requesterInfo, BettermeUser user){
         if(user.getId() == null) throw new BadRequestException("id is required");
 
         BettermeUser currentUser = this.userService.getById(user.getId());
         if(currentUser == null) throw new NotFoundException("user not found");
+
+//        long requesterId = requesterInfo.getId();
+//        if(user.getId() != requesterId) throw new ForbiddenException("forbidden");
 
         this.userService.mergeUserToUpdate(currentUser, user);
         this.userService.update(currentUser);

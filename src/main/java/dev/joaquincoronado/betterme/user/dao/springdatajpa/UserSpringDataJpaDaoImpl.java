@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-@Primary
-@Repository
+
+@Repository("userSpringDataJpa")
 @RequiredArgsConstructor
 public class UserSpringDataJpaDaoImpl implements IUserDao {
 
@@ -25,21 +25,24 @@ public class UserSpringDataJpaDaoImpl implements IUserDao {
 
     @Override
     public void update(BettermeUser user) {
-
+        BettermeUserEntity entity = this.mapper.toEntity(user);
+        this.userRepository.save(entity);
     }
 
     @Override
     public void delete(long id) {
-
+        this.userRepository.deleteById(id);
     }
 
     @Override
     public BettermeUser getById(long id) {
-        return null;
+        BettermeUserEntity entity = this.userRepository.findById(id).orElse(null);
+        return this.mapper.toModel(entity);
     }
 
     @Override
     public BettermeUser getByEmail(String email) {
-        return null;
+        BettermeUserEntity entity = this.userRepository.findByEmail(email);
+        return this.mapper.toModel(entity);
     }
 }

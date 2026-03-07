@@ -4,6 +4,7 @@ import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import dev.joaquincoronado.betterme.user.dao.IUserDao;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserService {
 
+    @Qualifier("userSpringDataJpa")
     private final IUserDao userDao;
     private final PasswordEncoder passwordEncoder;
 

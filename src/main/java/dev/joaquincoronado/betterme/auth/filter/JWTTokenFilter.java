@@ -1,13 +1,14 @@
 package dev.joaquincoronado.betterme.auth.filter;
 
+import dev.joaquincoronado.betterme.auth.model.BettermeAuth;
 import dev.joaquincoronado.betterme.auth.service.JWTService;
+import dev.joaquincoronado.betterme.shared.model.RequesterInfo;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -56,8 +57,14 @@ public class JWTTokenFilter extends OncePerRequestFilter {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);
 
-        UsernamePasswordAuthenticationToken authentication
-            = new UsernamePasswordAuthenticationToken(user, null, authorities);
+        RequesterInfo requesterInfo = RequesterInfo.builder()
+            .id(user.getId())
+            .email(user.getEmail())
+            .role(user.getRole())
+            .build();
+
+        BettermeAuth authentication
+            = new BettermeAuth(user, null, authorities, requesterInfo);
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
