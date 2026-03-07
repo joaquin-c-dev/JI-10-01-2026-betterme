@@ -13,7 +13,7 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user/v1")
-public class UserController {
+public class UserController implements IUserController{
 
     private final UserUseCase userUseCase;
 

@@ -41,6 +41,13 @@ public class SecurityConfig {
         "/auth/v1/**"
     };
 
+    private final String[] SWAGGER_ENDPOINT = {
+        "/swagger-resources/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http){
         return http
@@ -59,6 +66,7 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.PUT, "/user/v1/user/**").hasAnyRole(ROLE_USER)
                     .requestMatchers(HttpMethod.DELETE, "/user/v1/user/**").hasAnyRole(ROLE_ADMIN)
                     .requestMatchers(PUBLIC_ENDPOINT).permitAll()
+                    .requestMatchers(SWAGGER_ENDPOINT).permitAll()
             )
             .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
