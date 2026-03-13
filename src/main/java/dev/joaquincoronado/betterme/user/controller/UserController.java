@@ -5,10 +5,9 @@ import dev.joaquincoronado.betterme.shared.model.RequesterInfo;
 import dev.joaquincoronado.betterme.user.model.BettermeUser;
 import dev.joaquincoronado.betterme.user.usecase.UserUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,11 +33,11 @@ public class UserController implements IUserController{
 
     @PutMapping("/user")
     public BettermeUser updateUser(
-        @AuthenticationPrincipal BettermeAuth bettermeAuth,
+        @CurrentSecurityContext(expression = "authentication") BettermeAuth bettermeAuth,
         @RequestBody BettermeUser user
     ){
-        //RequesterInfo requesterInfo = bettermeAuth.getRequesterInfo();
-        return this.userUseCase.updateUseCase(null, user);
+        RequesterInfo requesterInfo = bettermeAuth.getRequesterInfo();
+        return this.userUseCase.updateUseCase(requesterInfo, user);
     }
 
 }

@@ -50,8 +50,8 @@ public class UserUseCase {
         BettermeUser currentUser = this.userService.getById(user.getId());
         if(currentUser == null) throw new NotFoundException("user not found");
 
-//        long requesterId = requesterInfo.getId();
-//        if(user.getId() != requesterId) throw new ForbiddenException("forbidden");
+        long requesterId = requesterInfo.getId();
+        if(user.getId() != requesterId) throw new ForbiddenException("forbidden");
 
         this.userService.mergeUserToUpdate(currentUser, user);
         this.userService.update(currentUser);
