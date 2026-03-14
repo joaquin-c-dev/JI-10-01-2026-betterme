@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
         )
     )
 })
-@SecurityRequirement(name = "Bearer Authentication")
+@SecurityRequirement(name = "bearer-authentication")
 public interface IUserController {
     @Operation(summary = "Create a new user", description = "Create a new user on data base")
     BettermeUser createUser(BettermeUser user);

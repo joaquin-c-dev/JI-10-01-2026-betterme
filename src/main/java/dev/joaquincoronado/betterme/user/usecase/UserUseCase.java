@@ -58,6 +58,4 @@ public class UserUseCase {
         return currentUser;
     }
 
-
-
 }

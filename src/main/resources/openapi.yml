@@ -1,0 +1,25 @@
+springdoc:
+  openapi:
+    info:
+      title: Betterme API
+      description: This API was created to handle betterme app
+      version: v1
+      contact:
+        name: Joaquin Coronado
+        email: joaquin@hotmail.com
+        url: https://joaquincoronado.dev/
+      license:
+        name: Apache 2.0
+        url: https://www.apache.org/licenses/LICENSE-2.0
+    servers:
+      - url: http://localhost:8080/
+        description: Local
+      - url: http://localhost:8080/
+        description: Production
+    # Configuración para el Security Scheme
+    components:
+      security-schemes:
+        bearer-authentication:
+          type: http
+          scheme: bearer
+          bearer-format: JWT
