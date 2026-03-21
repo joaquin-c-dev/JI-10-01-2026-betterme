@@ -7,6 +7,7 @@ import dev.joaquincoronado.betterme.shared.exception.BadRequestException;
 import dev.joaquincoronado.betterme.shared.exception.ForbiddenException;
 import dev.joaquincoronado.betterme.shared.exception.NotFoundException;
 import dev.joaquincoronado.betterme.shared.model.RequesterInfo;
+import dev.joaquincoronado.betterme.user.controller.async.queue.SyncUserInfoProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DailyRecordUseCase {
+    private final SyncUserInfoProducer syncUserInfoProducer;
     private final DailyRecordAnalyzer dailyRecordAnalyzer;
     private final DailyRecordService dailyRecordService;
 
@@ -24,6 +26,7 @@ public class DailyRecordUseCase {
         LocalDateTime startDate,
         LocalDateTime endDate
     ){
+        this.syncUserInfoProducer.startUserInfoSync(requester.getId());
         return this.dailyRecordService.listByUserId(requester.getId(), startDate, endDate);
     }
 
