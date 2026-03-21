@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DailyRecordUseCase {
-    private final SyncUserInfoProducer syncUserInfoProducer;
     private final DailyRecordAnalyzer dailyRecordAnalyzer;
     private final DailyRecordService dailyRecordService;
 
@@ -26,7 +25,6 @@ public class DailyRecordUseCase {
         LocalDateTime startDate,
         LocalDateTime endDate
     ){
-        this.syncUserInfoProducer.startUserInfoSync(requester.getId());
         return this.dailyRecordService.listByUserId(requester.getId(), startDate, endDate);
     }
 
