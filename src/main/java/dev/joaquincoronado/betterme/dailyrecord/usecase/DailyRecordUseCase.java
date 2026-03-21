@@ -24,7 +24,7 @@ public class DailyRecordUseCase {
         LocalDateTime startDate,
         LocalDateTime endDate
     ){
-        return null;
+        return this.dailyRecordService.listByUserId(requester.getId(), startDate, endDate);
     }
 
     public DailyRecord processDailyProgressUseCase(RequesterInfo requester, DailyRecord dailyRecord){

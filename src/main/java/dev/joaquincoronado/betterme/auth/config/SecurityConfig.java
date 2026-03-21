@@ -65,6 +65,7 @@ public class SecurityConfig {
             .authorizeHttpRequests( auth ->
                 auth.requestMatchers(HttpMethod.PUT, "/user/v1/user/**").hasAnyRole(ROLE_USER)
                     .requestMatchers(HttpMethod.DELETE, "/user/v1/user/**").hasAnyRole(ROLE_ADMIN)
+                    .requestMatchers("/dailyRecord/v1/**").hasAnyRole(ROLE_USER)
                     .requestMatchers(PUBLIC_ENDPOINT).permitAll()
                     .requestMatchers(SWAGGER_ENDPOINT).permitAll()
             )

@@ -6,9 +6,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Nutrition {
-    private Boolean breakfast;
-    private Boolean snackOne;
-    private Boolean lunch;
-    private Boolean snackTwo;
-    private Boolean dinner;
+    private Boolean breakfast = false;
+    private Boolean snackOne = false;
+    private Boolean lunch = false;
+    private Boolean snackTwo = false;
+    private Boolean dinner = false;
 }
