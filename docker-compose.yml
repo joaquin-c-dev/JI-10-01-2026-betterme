@@ -1,0 +1,8 @@
+services:
+  betterme:
+    build: .
+    container_name: betterme
+    image: betterme:v1
+    ports:
+      - "8080:8080"
+    restart: always
