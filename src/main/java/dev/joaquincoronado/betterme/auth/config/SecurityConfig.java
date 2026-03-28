@@ -38,7 +38,8 @@ public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINT = {
         "/user/v1/**",
-        "/auth/v1/**"
+        "/auth/v1/**",
+        "/tax/v1/**"
     };
 
     private final String[] SWAGGER_ENDPOINT = {
