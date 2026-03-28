@@ -13,8 +13,8 @@ public class UserCronJobs {
 
     private final SyncUserInfoProducer syncUserInfoProducer;
 
-    @Scheduled(cron = "0 0 4 * * *")
-    //@Scheduled(cron = "*/5 * * * * *")
+    //@Scheduled(cron = "0 0 4 * * *")
+    @Scheduled(cron = "*/5 * * * * *")
     public void syncUserInformation() {
         log.info("CRON: SyncUserInfoProducer START");
         this.syncUserInfoProducer.startUserInfoSync(1L);

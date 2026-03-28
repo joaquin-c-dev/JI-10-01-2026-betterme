@@ -6,6 +6,16 @@ services:
     ports:
       - "8080:8080"
     restart: always
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=admin123
+    depends_on:
+      rabbitmq:
+          condition: service_healthy
+    networks:
+      - betterme-network
   rabbitmq:
     image: rabbitmq:4-management
     container_name: rabbitmq-server
@@ -15,7 +25,17 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin123
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - betterme-network
 volumes:
   rabbitmq_data:
+networks:
+  betterme-network:
+    driver: bridge
